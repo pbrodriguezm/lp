@@ -73,26 +73,16 @@ proc {ExecuteProgram Program}   % Calls ExecuteStatement with an initial semanti
     E={NewEnv}
     NewE={AddMappingE [cout#L] E}  %Note: The #-sign creates a pair.  It translates to a tuple having '#' as the label.ç
    
-
-    Op1={NewLocnInStore}
-    {BindLocnValInStore Op1 a}
-    Op2={NewLocnInStore}
-    {BindLocnValInStore Op2 b}
-    NewE={AddMappingE [add#(a#b)] E}  %Note: The #-sign creates a pair.  It translates to a tuple having '#' as the label.ç
-
-
-    Op1={NewLocnInStore}
-    {BindLocnValInStore Op1 a}
-    Op2={NewLocnInStore}
-    {BindLocnValInStore Op2 b}
-    NewE={AddMappingE [remov#(a#b)] E}  %Note: The #-sign creates a pair.  It translates to a tuple having '#' as the label.ç
-
-    Op1={NewLocnInStore}
-    {BindLocnValInStore Op1 a}
-    Op2={NewLocnInStore}
-    {BindLocnValInStore Op2 b}
-    NewE={AddMappingE [multi#(a#b)] E}  %Note: The #-sign creates a pair.  It translates to a tuple having '#' as the label.ç
-
+   
+   
+   E= {NewEnv}
+   L1 = {NewLocnInStore} //crea variable en memoria
+   {BindLocnValInStore L1 show} // asocia variable a valor
+   
+   L2 = {NewLocnInStore} //crea variable en memoria
+   {BindLocnValInStore L2 Value.'+'} // asocia variable a valor
+   
+   Env={AddMappingE [cout#L '+'#L2 '-'#L3] E}
 
 
 
@@ -123,6 +113,9 @@ proc {ExecuteStatement Stack}   % Executes each kernel statement
    % you don't have to.
    % fappStmt: Consider using List.zip (see online Oz documentation); otherwise write your own
    %           recursive function to lookup actual args and pair them with formals.
+   
+   
+   
    if {StackIsEmpty Stack} == false then
    local stmt env outstack in
       stmt#env|outstack = {PopSemStack stack}
